@@ -5,7 +5,9 @@ import LoginView from '../views/LoginView.vue';
 import MoviesView from '../views/MoviesView.vue';
 import DetailsView from '../views/DetailsView.vue';
 import CartView from '../views/CartView.vue';
-import SettingsView from '../views/SettingsView.vue'
+import SettingsView from '../views/SettingsView.vue';
+import ErrorView from '../views/ErrorView.vue';
+
 
 const routes = [
     { path: '/', component: HomeView },
@@ -14,7 +16,8 @@ const routes = [
     { path: '/movies', component: MoviesView},
     { path: '/movies/:id', component: DetailsView},
     { path: '/cart', component: CartView},
-    { path: '/settings', component: SettingsView}
+    { path: '/settings', component: SettingsView},
+    { path: '/:pathMatch(.*)*', meta: { auth: false }, component: ErrorView, }
 ]
 
 const router = createRouter({
