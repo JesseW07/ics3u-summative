@@ -8,11 +8,24 @@ import Footer from '../components/Footer.vue'
 const router = useRouter();
 const password = ref('');
 
-const handleLogin = () => {
-  if (password.value === "12345678") {
+const loginByEmail = async () => {
+  try {
+    const user = (await signInWithEmailAndPassword(auth, email.value, password.value)).user;
+    store.user = user;
     router.push("/movies");
-  } else {
-    alert("Invalid Password");
+  } catch (error) {
+    console.log(error);
+    alert("There was an error signing in with email!");
+  }
+};
+
+const loginByGoogle = async () => {
+  try {
+    const user = (await signInWithPopup(auth, new GoogleAuthProvider())).user;
+    store.user = user;
+    router.push("/movies");
+  } catch (error) {
+    alert("There was an error signing in with Google!");
   }
 };
 
@@ -20,7 +33,7 @@ const handleLogin = () => {
 
 <template>
   <Header />
-  <form @submit.prevent="handleLogin">
+  <form @submit.prevent="loginByEmail()">
     <div class="form-container">
       <h2>Sign In</h2>
       <input type="email" placeholder="Email" class="input-field" required>
