@@ -38,7 +38,8 @@ const loginByGoogle = async () => {
       <h2>Sign In</h2>
       <input type="email" placeholder="Email" class="input-field" required>
       <input v-model:="password" type="password" placeholder="Password" class="input-field" required />
-      <button type="submit" class="button register">Login</button>
+      <button type="submit" class="button login">Login</button>
+      <button @click="loginByGoogle()" type="submit" class="button login">Login by Google</button>
     </div>
   </form>
   <Footer />
@@ -63,7 +64,7 @@ const loginByGoogle = async () => {
   background-color: #333;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  padding-bottom: 40vh
+  padding-bottom: 30vh
 }
 
 h2 {
@@ -93,7 +94,7 @@ h2 {
   border-color: #e50914;
 }
 
-.button.register {
+.button.login {
   width: 100%;
   padding: 12px;
   background-color: #e50914;
@@ -103,6 +104,7 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .button.register:hover {

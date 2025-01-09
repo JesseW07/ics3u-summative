@@ -1,14 +1,16 @@
 <script setup>
 import { useStore } from '../store';
+import { signOut } from 'firebase/auth';
 
 const store = useStore();
 
-function resetPinia() {
-    store.fName = null;
-    store.lName = null;
-    store.email = null;
-    store.password = null;
+
+const logout = () => {
+  store.user = null;
+  signOut(auth);
+  router.push(`/`);
 }
+
 
 </script>
 
@@ -16,15 +18,15 @@ function resetPinia() {
     <div class="topbar">
         <h2>NETFLEX</h2>
         <ul>
-            <div v-if=!store.email>
+            <div v-if=!store.user>
                 <RouterLink to="/register"><button>Register</button></RouterLink>
                 <RouterLink to="/login"><button>Login</button></RouterLink>
             </div>
-            <div v-if=store.email>
-                <RouterLink to="/movies"><button>{{ `Hello ${store.fName}!` }} (movies)</button></RouterLink>
+            <div v-if=store.user>
+                <RouterLink to="/movies"><button>{{ `Hello ${store.user}!` }} (movies)</button></RouterLink>
                 <RouterLink to="/cart"><button>Cart</button></RouterLink>
                 <RouterLink to="/settings"><button>Settings</button></RouterLink>
-                <RouterLink to="/"><button @click = "resetPinia()">Logout</button></RouterLink>
+                <RouterLink to="/"><button @click = "logout()">Logout</button></RouterLink>
             </div>
         </ul>
     </div>

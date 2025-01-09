@@ -11,7 +11,7 @@ import { userAuthorized, useStore } from '../store';
 
 
 const routes = [
-    { path: '/', component: HomeView },
+    { path: '/', meta: { auth: false }, component: HomeView },
     { path: '/register', component: RegisterView },
     { path: '/login', component: LoginView },
     { path: '/movies', component: MoviesView },
