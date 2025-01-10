@@ -1,12 +1,16 @@
 <script setup>
-import { RouterLink, useRouter } from 'vue-router';
+import {useRouter} from 'vue-router';
 import { ref } from 'vue';
+import {useStore} from '../store'
+import { auth } from "../firebase";
 
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 
+const store = useStore();
 const router = useRouter();
 const password = ref('');
+const email = ref("")
 
 const loginByEmail = async () => {
   try {
@@ -36,8 +40,8 @@ const loginByGoogle = async () => {
   <form @submit.prevent="loginByEmail()">
     <div class="form-container">
       <h2>Sign In</h2>
-      <input type="email" placeholder="Email" class="input-field" required>
-      <input v-model:="password" type="password" placeholder="Password" class="input-field" required />
+      <input v-model="email" type = "email" placeholder="Email" class="input-field" required>
+      <input v-model="password" type="password" placeholder="Password" class="input-field" required />
       <button type="submit" class="button login">Login</button>
       <button @click="loginByGoogle()" type="submit" class="button login">Login by Google</button>
     </div>

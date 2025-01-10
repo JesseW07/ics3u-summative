@@ -23,7 +23,7 @@ const logout = () => {
                 <RouterLink to="/login"><button>Login</button></RouterLink>
             </div>
             <div v-if=store.user>
-                <RouterLink to="/movies"><button>{{ `Hello ${store.user}!` }} (movies)</button></RouterLink>
+                <RouterLink to="/movies"><button>{{ `Hello ${store.user.displayName}!` }} (movies)</button></RouterLink>
                 <RouterLink to="/cart"><button>Cart</button></RouterLink>
                 <RouterLink to="/settings"><button>Settings</button></RouterLink>
                 <RouterLink to="/"><button @click = "logout()">Logout</button></RouterLink>

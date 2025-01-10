@@ -28,7 +28,7 @@ async function registerByEmail() {
             alert("There was an error creating a user with email!");
         }
     } else {
-        alert("Mismatching Passwords");
+        alert("Passwords do not match");
     }
 }
 async function registerByGoogle() {

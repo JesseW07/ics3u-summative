@@ -2,36 +2,37 @@
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 
-import {useStore} from '../store';
-import {ref} from 'vue';
+import { useStore } from '../store';
+import { ref } from 'vue';
 
 const store = useStore();
-const fName = ref(store.fName);
-const lName = ref(store.lName);
-const email = ref(store.email);
+const email = ref(store.user.email);
+const fName = ref(store.user.displayName.split(" ")[0]);
+const lName = ref(store.user.displayName.split(" ")[1]);
+const password = ref(store.user.password);
 
-function changeNames() {
-    store.fName = fName.value;
-    store.lName = lName.value;
+
+function changeSettings() {
+    store.user.displayName = `${fName.value} ${lName.value}`;
 }
 </script>
 
 <template>
     <Header />
-    <form @submit.prevent = "changeNames()">
+    <form @submit.prevent="changeSettings()">
         <div class="form-container">
             <h2>Change Settings</h2>
-            <input v-model = "fName" type="text" :placeholder=fName class="input-field" required>
-            <input v-model = "lName" type="text" :placeholder=lName class="input-field" required>
-            <input v-model = "email" type="email" :placeholder=email class="input-field" readonly>
-            <button class = "submit" type="submit">Save</button>
+            <input v-model="email" type="email" :placeholder=email class="input-field" readonly>
+            <input v-model="fName" type="text" :placeholder=fName class="input-field" required>
+            <input v-model="lName" type="text" :placeholder=lName class="input-field" required>
+            <input v-model="password" type="password" :placeholder="password" class="input-field" required>
+            <button class="submit" type="submit">Save</button>
         </div>
     </form>
     <Footer />
 </template>
 
 <style scoped>
-
 .form-container {
     display: flex;
     flex-direction: column;
@@ -47,7 +48,7 @@ function changeNames() {
 
 h2 {
     text-align: center;
-    color: #e50914; 
+    color: #e50914;
     margin-bottom: 20px;
     font-size: 24px;
 }
@@ -61,7 +62,7 @@ h2 {
     font-size: 16px;
     box-sizing: border-box;
     background-color: #333;
-    color: white; 
+    color: white;
 }
 
 .input-field:focus {
