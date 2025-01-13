@@ -6,6 +6,7 @@ import { useStore } from '../store';
 import { ref } from 'vue';
 
 const store = useStore();
+
 const email = ref(store.user.email);
 const fName = ref(store.user.displayName.split(" ")[0]);
 const lName = ref(store.user.displayName.split(" ")[1]);
@@ -14,6 +15,7 @@ const password = ref(store.user.password);
 
 function changeSettings() {
     store.user.displayName = `${fName.value} ${lName.value}`;
+    store.user.password = password.value
 }
 </script>
 
@@ -25,7 +27,7 @@ function changeSettings() {
             <input v-model="email" type="email" :placeholder=email class="input-field" readonly>
             <input v-model="fName" type="text" :placeholder=fName class="input-field" required>
             <input v-model="lName" type="text" :placeholder=lName class="input-field" required>
-            <input v-model="password" type="password" :placeholder="password" class="input-field" required>
+            <input v-model="password" type="text" :placeholder="password" class="input-field" required>
             <button class="submit" type="submit">Save</button>
         </div>
     </form>

@@ -3,6 +3,7 @@ import {useRouter} from 'vue-router';
 import { ref } from 'vue';
 import {useStore} from '../store'
 import { auth } from "../firebase";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
