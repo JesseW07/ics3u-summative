@@ -4,12 +4,17 @@ import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 
 const store = useStore();
+
+function checkOut() {
+
+}
 </script>
 
 <template>
     <Header/>
     <div class="cart">
         <h1>Shopping Cart</h1>
+        <button class = "buttons" @click = "checkOut()">checkout</button>
         <div class="item" v-for="([key, value]) in store.cart">
             <img :src="`https://image.tmdb.org/t/p/w500${value.url}`" />
             <h1>{{ value.title }}</h1>
@@ -76,6 +81,30 @@ const store = useStore();
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+
+}
+
+.buttons {
+    padding: 20px 150px;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    justify-self: center;
+    margin-bottom: 30px;
+}
+
+.buttons:hover {
+    background-color: #c4000a;
+    transform: scale(1.1);
+}
+
+.buttons:active {
+    transform: scale(0.95);
 }
 
 .item button:hover {

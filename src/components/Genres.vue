@@ -10,6 +10,11 @@ const router = useRouter();
 const selectedGenre = ref(28);
 const response = ref(null);
 
+const addToCart = (movie) => {
+  store.cart.set(movie.id, { title: movie.title, url: movie.poster_path });
+  localStorage.setItem(`cart_${store.user.email}`, JSON.stringify(Object.fromEntries(store.cart)));
+}
+
 async function getMovieByGenre() {
     response.value = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&with_genres=${selectedGenre.value}`);
 }
@@ -34,7 +39,7 @@ onMounted(() => {
                     class="movie-poster" @click="getMovieDetails(movie.id)"/>
                 <p class="movie-title" @click="getMovieDetails">{{ movie.title }}</p>
                 <button class = "movie-site-added" v-if="store.cart.has(movie.id)">added</button>
-                <button v-if="!store.cart.has(movie.id)"@click="store.cart.set(movie.id, { title: movie.original_title, url: movie.poster_path })"
+                <button v-if="!store.cart.has(movie.id)"@click="addToCart(movie)"
                 class="movie-site">buy</button>
             </div>
         </div>
