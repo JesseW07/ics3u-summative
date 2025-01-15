@@ -2,20 +2,36 @@
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 
+import { useRouter } from 'vue-router';
 import { useStore } from '../store';
 import { ref } from 'vue';
+import { updatePassword, updateProfile } from 'firebase/auth';
+import { auth } from '../firebase'
 
 const store = useStore();
+const router = useRouter();
 
 const email = ref(store.user.email);
 const fName = ref(store.user.displayName.split(" ")[0]);
 const lName = ref(store.user.displayName.split(" ")[1]);
 const password = ref(store.user.password);
 
+async function changeSettings() {
+    const user = auth.currentUser;
+    if (user) {
+        try {
+            await updateProfile(user, { displayName: `${fName.value} ${lName.value}`});
+            router.push ("/movies");
+            alert('Profile updated successfully');
 
-function changeSettings() {
-    store.user.displayName = `${fName.value} ${lName.value}`;
-    store.user.password = password.value
+            if (password) {
+                await updatePassword (auth.currentUser, password.value)
+            }
+
+        } catch (error) {
+            alert('Error updating profile:', error);
+        }
+    }
 }
 </script>
 
@@ -27,7 +43,7 @@ function changeSettings() {
             <input v-model="email" type="email" :placeholder=email class="input-field" readonly>
             <input v-model="fName" type="text" :placeholder=fName class="input-field" required>
             <input v-model="lName" type="text" :placeholder=lName class="input-field" required>
-            <input v-model="password" type="text" :placeholder="password" class="input-field" required>
+            <input v-model="password" type="text" placeholder="enter new password (not required)" class="input-field" >
             <button class="submit" type="submit">Save</button>
         </div>
     </form>
