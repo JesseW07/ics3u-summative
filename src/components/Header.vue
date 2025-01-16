@@ -1,9 +1,11 @@
 <script setup>
 import { useStore } from '../store';
 import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import { useRouter } from 'vue-router';
 
 const store = useStore();
-
+const router = useRouter();
 
 const logout = () => {
   store.user = null;

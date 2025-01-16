@@ -11,7 +11,7 @@ const selectedGenre = ref(28);
 const response = ref(null);
 
 const addToCart = (movie) => {
-  store.cart.set(movie.id, { title: movie.title, url: movie.poster_path });
+  store.cart.set(String(movie.id), { title: movie.title, url: movie.poster_path });
   localStorage.setItem(`cart_${store.user.email}`, JSON.stringify(Object.fromEntries(store.cart)));
 }
 
@@ -38,8 +38,8 @@ onMounted(() => {
                 <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster"
                     class="movie-poster" @click="getMovieDetails(movie.id)"/>
                 <p class="movie-title" @click="getMovieDetails">{{ movie.title }}</p>
-                <button class = "movie-site-added" v-if="store.cart.has(movie.id)">added</button>
-                <button v-if="!store.cart.has(movie.id)"@click="addToCart(movie)"
+                <button class = "movie-site-added" v-if="store.cart.has(String(movie.id))">added</button>
+                <button v-if="!store.cart.has(String(movie.id))"@click="addToCart(movie)"
                 class="movie-site">buy</button>
             </div>
         </div>

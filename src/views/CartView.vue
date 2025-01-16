@@ -6,22 +6,35 @@ import Footer from '../components/Footer.vue';
 const store = useStore();
 
 function checkOut() {
-
+    if (store.cart.size > 0) {
+        store.cart.clear();
+        localStorage.removeItem(`cart_${store.user.email}`);
+        alert("Thank you for your purchase!");
+    } else {
+        alert("Nothing to buy :c");
+    }
 }
+
+
+const removeFromCart = (key) => {
+    store.cart.delete(key);
+    localStorage.setItem(`cart_${store.user.email}`, JSON.stringify(Object.fromEntries(store.cart)));
+}
+
 </script>
 
 <template>
-    <Header/>
+    <Header />
     <div class="cart">
         <h1>Shopping Cart</h1>
-        <button class = "buttons" @click = "checkOut()">checkout</button>
+        <button class="buttons" @click="checkOut()">checkout</button>
         <div class="item" v-for="([key, value]) in store.cart">
             <img :src="`https://image.tmdb.org/t/p/w500${value.url}`" />
             <h1>{{ value.title }}</h1>
-            <button @click="store.cart.delete(key)">Remove</button>
+            <button @click="removeFromCart(key)">Remove</button>
         </div>
     </div>
-    <Footer/>
+    <Footer />
 </template>
 
 <style scoped>

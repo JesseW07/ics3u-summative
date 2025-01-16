@@ -12,12 +12,12 @@ import { userAuthorized, useStore } from '../store';
 
 const routes = [
     { path: '/', meta: { auth: false }, component: HomeView },
-    { path: '/register', component: RegisterView },
-    { path: '/login', component: LoginView },
-    { path: '/movies', component: MoviesView },
-    { path: '/movies/:id', component: DetailsView },
-    { path: '/cart', component: CartView },
-    { path: '/settings', component: SettingsView },
+    { path: '/register', meta: { auth: false }, component: RegisterView },
+    { path: '/login', meta: { auth: false }, component: LoginView },
+    { path: '/movies', meta: { auth: true }, component: MoviesView },
+    { path: '/movies/:id', meta: { auth: true }, component: DetailsView },
+    { path: '/cart', meta: { auth: true }, component: CartView },
+    { path: '/settings', meta: { auth: true }, component: SettingsView },
     { path: '/:pathMatch(.*)*', meta: { auth: false }, component: ErrorView, }
 ]
 
@@ -26,16 +26,19 @@ const router = createRouter({
     routes,
 })
 
-router.beforeEach((to, from, next) => {
-    userAuthorized.then(() => {
+router.beforeEach(async (to, from, next) => {
+    try{
+        await userAuthorized;
         const store = useStore();
-
         if (!store.user && to.meta.auth) {
             next("/login");
         } else {
             next();
         }
-    });
+    }catch (error) {
+        console.error ("error", error)
+        router.push ("/login")
+    }
 });
 
 export default router;
