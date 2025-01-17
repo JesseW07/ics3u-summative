@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <h1>huwwo >.<</h1>
+    <h1>page not available</h1>
 </template>
 
 <style scoped>
