@@ -17,94 +17,94 @@ const lName = ref(store.user.displayName.split(" ")[1]);
 const password = ref(store.user.password);
 
 async function changeSettings() {
-    const user = auth.currentUser;
-    if (user) {
-        try {
-            await updateProfile(user, { displayName: `${fName.value} ${lName.value}`});
-            router.push ("/movies");
-            alert('Profile updated successfully');
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      await updateProfile(user, { displayName: `${fName.value} ${lName.value}` });
+      router.push("/movies");
+      alert('Profile updated successfully');
 
-            if (password) {
-                await updatePassword (auth.currentUser, password.value)
-            }
+      if (password) {
+        await updatePassword(auth.currentUser, password.value)
+      }
 
-        } catch (error) {
-            alert('Error updating profile:', error);
-        }
+    } catch (error) {
+      alert('Error updating profile:', error);
     }
+  }
 }
 </script>
 
 <template>
-    <Header />
-    <form @submit.prevent="changeSettings()">
-        <div class="form-container">
-            <h2>Change Settings</h2>
-            <input v-model="email" type="email" :placeholder=email class="input-field" readonly>
-            <input v-model="fName" type="text" :placeholder=fName class="input-field" required>
-            <input v-model="lName" type="text" :placeholder=lName class="input-field" required>
-            <input v-model="password" type="text" placeholder="enter new password (not required)" class="input-field" >
-            <button class="submit" type="submit">Save</button>
-        </div>
-    </form>
-    <Footer />
+  <Header />
+  <form @submit.prevent="changeSettings()">
+    <div class="form-container">
+      <h2>Change Settings</h2>
+      <input v-model="email" type="email" :placeholder=email class="input-field" readonly>
+      <input v-model="fName" type="text" :placeholder=fName class="input-field" required>
+      <input v-model="lName" type="text" :placeholder=lName class="input-field" required>
+      <input v-model="password" type="text" placeholder="enter new password (not required)" class="input-field">
+      <button class="submit" type="submit">Save</button>
+    </div>
+  </form>
+  <Footer />
 </template>
 
 <style scoped>
 .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #1a1a1a;
-    margin-bottom: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #1a1a1a;
+  margin-bottom: 20vh;
 }
 
 h2 {
-    text-align: center;
-    color: #e50914;
-    margin-bottom: 20px;
-    font-size: 24px;
+  text-align: center;
+  color: #e50914;
+  margin-bottom: 20px;
+  font-size: 24px;
 }
 
 .input-field {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
-    background-color: #333;
-    color: white;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #333;
+  color: white;
 }
 
 .input-field:focus {
-    border-color: #e50914;
-    outline: none;
+  border-color: #e50914;
+  outline: none;
 }
 
 .submit {
-    padding: 12px 20px;
-    border: none;
-    background-color: #e50914;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  padding: 12px 20px;
+  border: none;
+  background-color: #e50914;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .submit:hover {
-    background-color: #e50914;
+  background-color: #e50914;
 }
 
 .submit:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
+  background-color: #ddd;
+  cursor: not-allowed;
 }
 </style>
